@@ -4,8 +4,8 @@ function sol = punto_fijo(g,x0, interaciones, toleracia )
   g_derivada = diff(g, x , 1); # primera derivada
 
   # transformar las funciones simbolicas
-  g_derivada_handle = function_handle(g_derivada);
-  g_handle = function_handle(g);
+  g_derivada_handle = function_handle(g_derivada,'vars',[x]);
+  g_handle = function_handle(g,'vars',[x]);
 
   # evaluar en la derivada --> Teorema existencia y unicidad
 
@@ -20,7 +20,7 @@ function sol = punto_fijo(g,x0, interaciones, toleracia )
       sol( i + 1) = g_handle(sol(i));
       error = abs(sol(i + 1) - sol(i) / sol(i + 1) );
       if error < toleracia
-        msgbox(i);
+        i
         break;
       endif
     endfor
